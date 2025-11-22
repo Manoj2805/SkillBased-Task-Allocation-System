@@ -1,0 +1,393 @@
+
+#http://localhost:8764/api/auth/register  (post) ---->Register
+
+#{
+ # "name": "Test User",
+ # "email": "test@example.com",
+ #"password": "Password123",
+ #"phone": "9876543210",
+ #"address": "123 Java St",
+ # "status": "ACTIVE",
+ #"roleId": 3
+#}
+
+
+
+--->AuthController 
+
+http://localhost:8000/api/auth/login (post)-------->Login
+
+data:
+{
+  "email": "test@example.com",
+  "password": "Password123",
+  "roleId": 3
+}
+
+http://localhost:8000/api/auth/register (post) ------> Register
+
+data:
+{
+    "name": "Adithya",
+    "email": "Adithya@example.com",
+    "password": "Adithya@123"
+}
+
+
+---> PermissionController
+http://localhost:8000/api/permissions (GET)
+http://localhost:8000/api/permissions/Assign Task (GET)
+http://localhost:8000/api/permissions (post)
+{
+    "permissionName": "Update Task",
+    "description": "Permission to upadate tasks to users",
+    "createdAt": "2025-05-14T15:30:28"
+}
+
+
+---> ReportController
+http://localhost:8000/api/reports/status/PENDING (GET)
+http://localhost:8000/api/reports/dateRange?start=2025-05-10&end=2025-05-13 (GET)
+http://localhost:8000/api/reports/user/3 (GET)
+
+
+---> SkillHistoryController
+http://localhost:8000/api/skill-history/user/3 (GET)
+--->Post(?)
+
+----->TaskRequestController
+
+http://localhost:8000/api/task-requests/user/3 (GET)
+http://localhost:8000/api/task-requests/task/1 (GET)
+http://localhost:8000/api/task-requests/1/respond?status=APPROVED&respondedBy=3 (Put)
+http://localhost:8000/api/task-requests (Post)
+data:
+{
+    "requestId": 2,
+    "userId": 2,
+    "taskId": 1,
+    "requestMessage": "I would like to work on this API task",
+    "status": "APPROVED",
+    "requestDate": "2025-05-14T15:30:28",
+    "respondedBy": 3,
+    "respondedAt": "2025-05-26T16:40:57.9889798"
+}
+http://localhost:8000/api/task-requests/2 (Delete)
+
+
+-------->TeamController
+http://localhost:8000/api/teams/members/1 (GET)
+http://localhost:8000/api/teams (Post)
+data:
+{
+    "teamName": "Problem-solving and Debgging",
+    "projectName": "Skill-BasedTaskAlloaction"
+}
+http://localhost:8000/api/teams/addUser (POST)
+data:
+{
+        "teamMemberId": {
+            "userId": 1,
+            "teamId": 1
+        },
+        "skill": {
+            "skillId": 3,
+            "skillName": "Team Communication",
+            "skillDescription": "Effective communication in teams",
+            "category": "Soft Skill",
+            "level": "INTERMEDIATE",
+            "createdAt": "2025-05-14T15:30:28"
+        },
+        "task": {
+            "taskId": 2,
+            "title": "Design DB",
+            "description": "Design and implement database schema",
+            "priority": "MEDIUM",
+            "status": "ASSIGNED",
+            "estimatedHours": 8,
+            "actualHours": null,
+            "deadline": "2025-05-20",
+            "startDate": "2025-05-10",
+            "endDate": null,
+            "createdAt": "2025-05-14T15:30:28",
+            "updatedAt": "2025-05-14T15:30:28"
+        },
+        "joinedOn": "2025-05-09",
+        "roleInTeam": "database Developer"
+    }
+    
+    
+-----> TaskUpdateController
+http://localhost:8000/api/task-updates/task/1 (GET)
+http://localhost:8000/api/task-updates (Post)
+data:
+{
+        "taskId": 2,
+        "comment": "Schema draft prepared",
+        "status": "IN_PROGRESS",
+        "updatedBy": 3
+ }
+
+         
+
+
+
+-------> USER
+
+#POST(User)
+http://localhost:8000/api/users/create
+
+{ 
+        "name": "kola Akhila",
+        "email": "kola@gmail.com",
+        "phone": "9701642018",
+        "address": "Aler,Yadadri",
+        "password":"akhi_pwd",
+        "status":"ACTIVE",
+        "roleId":"3",
+        "managerId":"2",
+        "updatedBy":1
+    }
+#PUT(User)
+
+ http://localhost:8000/api/users/2
+{ 
+        "name": "kola Swati",
+        "email": "kola@gmail.com",
+        "phone": "9701642014",
+        "address": "Aler,Yadadri",
+        "password":"akhi_pwd",
+        "status":"ACTIVE",
+        "roleId":"3",
+        "managerId":"2",
+        "updatedBy":1
+    }
+
+#GET(User) By Id
+
+http://localhost:8000/api/users/3
+
+#GET(To get all Users)
+
+http://localhost:8000/api/users
+
+#GET(To get details basrd on roleId)
+
+ http://localhost:8000/api/users/role/3
+
+------>SKILL
+
+#POST(Skill)
+http://localhost:8000/api/skills
+{
+ "skillName":"Java",
+"skillDescription":"I ike Java Programming",
+"category":"Programming",
+"level":"INTERMEDIATE"
+}
+
+#PUT(Skill)
+
+http://localhost:8000/api/skills/4
+{
+ "skillName":"Java",
+"skillDescription":"I ike Java Programming",
+"category":"Programming",
+"level":"BEGINNER"
+}
+#GET(Skill)
+http://localhost:8000/api/skills
+
+
+#GET(By skillName in input)
+
+http://localhost:8000/api/skills/Java
+
+
+NOTIFICATION
+
+#POST
+
+http://localhost:8000/api/notifications
+
+{
+ "userId" :3,
+"message" : "Reminder: Report due tomorrow"  ,               
+ "type"  : "REMINDER",  
+ "isRead":true
+ }
+
+#GET(NOTIFICATION)
+http://localhost:8000/api/notifications/user/3
+
+
+------->ROLE
+
+#POST
+
+http://localhost:8000/api/roles
+{
+"roleName":"Admin",
+"description":"Manage the tasks"
+}
+
+#PUT
+{
+"roleName":"Manager",
+"description":"Manage the tasks"
+}
+
+#DELETE(Manoj)
+http://localhost:8000/api/roles/2
+
+
+#GET(To get all information)
+http://localhost:8000/api/roles
+
+
+#GET(To get based on roleId)
+http://localhost:8000/api/roles/2
+
+
+------>TASK
+
+
+#POST
+http://localhost:8000/api/tasks
+
+{
+  "title": "Build Frontend Dashboard",
+  "description": "Design and implement the main dashboard UI for project tracking.",
+  "priority": "HIGH",
+  "status": "ASSIGNED",
+  "estimatedHours": 20,
+  "actualHours": 0,
+  "requiredSkillId": 2,
+  "assignedTo": 2,
+  "deadline": "2025-06-15",
+  "startDate": "2025-05-24",
+  "endDate": "2025-06-10",
+  "createdBy": 2
+}
+
+
+#PUT
+
+http://localhost:8000/api/tasks
+{
+    "taskId":1,
+  "title": "Backend Developer",
+  "description": "Design and implement the main dashboard UI for project tracking.",
+  "priority": "HIGH",
+  "status": "ASSIGNED",
+  "estimatedHours": 20,
+  "actualHours": 0,
+  "requiredSkillId": 2,
+  "assignedTo": 2,
+  "deadline": "2025-06-15",
+  "startDate": "2025-05-24",
+  "endDate": "2025-06-10",
+  "createdBy": 2
+}
+
+
+#DELETE
+
+http://localhost:8000/api/tasks/3
+
+	
+
+#GET(To get all tasks)
+
+http://localhost:8000/api/tasks
+
+
+#GET(Based on userId)
+
+http://localhost:8000/api/tasks/created-by/2
+
+
+
+#GET(Based on AssignedTO(Related to user)
+
+http://localhost:8000/api/tasks/assigned-to/2
+
+
+#GET(Based on status)
+http://localhost:8000/api/tasks/status/ASSIGNED
+
+
+
+#GET(Based on skillId)
+http://localhost:8000/api/tasks/skill/2
+
+#GET(Based on start Date and End Date)
+http://localhost:8000/api/tasks/deadline?start=2025-05-10&end=2025-05-22
+
+
+
+-----> TASKSKILL
+
+#POST(TskSkill)
+
+http://localhost:8000/api/task-skills
+
+{
+  "taskId": 1,
+  "skillId": 2,
+  "importanceLevel": "MEDIUM"
+} 
+
+#GET(Based on taskId)
+http://localhost:8000/api/task-skills/task/1
+
+
+----> NOTIFICATION
+#POST
+http://localhost:8000/api/notifications
+
+{
+ "userId" :3,
+"message" : "Reminder: Report due tomorrow" ,               
+ "type"  : "REMINDER",  
+ "isRead":true
+ }
+
+
+#GET(Based on userId)
+
+http://localhost:8000/api/notifications/user/3
+
+--->USERSKILL'
+
+#POST
+
+http://localhost:8000/api/user-skills
+
+
+    {
+        "userId": 3,
+        "skillId": 2,
+        "proficiencyLevel": "BEGINNER",
+        "lastUsed": "2025-05-07"
+    }
+
+
+#GET(Based on the userId)
+
+http://localhost:8000/api/user-skills/user/3
+
+
+#GET(Based on userId and SkillId
+ http://localhost:8000/api/user-skills/3/2
+ 
+http://localhost:8000/api/user-skills/skill/3  (GET)
+
+http://localhost:8000/api/user-skills (PUT)
+
+{
+        "userId": 2,
+        "skillId": 3,
+        "proficiencyLevel": "BEGINNER",
+        "lastUsed": "2024-11-21"
+}
